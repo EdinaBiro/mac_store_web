@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 
-class VendorsScreen extends StatelessWidget {
-  const VendorsScreen({super.key});
+class CategoryScreen extends StatelessWidget {
+  static const String id = '\category-screen';
+  const CategoryScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
