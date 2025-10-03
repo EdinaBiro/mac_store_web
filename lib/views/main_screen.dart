@@ -22,8 +22,10 @@ class _MainScreenState extends State<MainScreen> {
       sideBar: SideBar(items: [
         AdminMenuItem(title: 'Vandors', route: "", icon: CupertinoIcons.person_3,),
          AdminMenuItem(title: 'Buyers', route: "", icon: CupertinoIcons.person,),
+         AdminMenuItem(title: 'Orders', route: "", icon: CupertinoIcons.shopping_cart,),
           AdminMenuItem(title: 'Categories', route: "", icon: Icons.category,),
-           AdminMenuItem(title: 'Banners', route: "", icon: CupertinoIcons.bandage,),
+           AdminMenuItem(title: 'Upload Banner', route: "", icon: Icons.upload,),
+           AdminMenuItem(title: 'Products', route: "", icon: Icons.store,),
       ], selectedRoute: '',),
       );
   }
