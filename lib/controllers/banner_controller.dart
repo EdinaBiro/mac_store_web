@@ -36,7 +36,7 @@ class BannerController {
   }
     Future<List<BannerModel>> loadBanners() async{
       try{
-        http.Response response = await http.get(Uri.parse("$uri/api/banners"), headers:<String, String>{
+        http.Response response = await http.get(Uri.parse("$uri/api/banner"), headers:<String, String>{
           'Content-Type': 'application/json',
         }, );
       print(response.body);
