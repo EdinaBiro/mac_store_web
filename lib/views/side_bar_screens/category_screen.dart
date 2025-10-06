@@ -14,6 +14,7 @@ class CategoryScreen extends StatefulWidget {
   class _CategoryScreenState extends State<CategoryScreen>{
     final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
     late String categoryName;
+    dynamic _bannerImage;
     dynamic _image;
     pickImage() async {
       FilePickerResult? result =  await FilePicker.platform.pickFiles(
@@ -24,6 +25,19 @@ class CategoryScreen extends StatefulWidget {
       if(result!=null){
         setState(() {
           _image = result.files.first.bytes;
+        });
+      }
+    }
+
+    pickBannerImage() async {
+      FilePickerResult? result =  await FilePicker.platform.pickFiles(
+        type: FileType.image,
+        allowMultiple: false,
+      );
+
+      if(result!=null){
+        setState(() {
+          _bannerImage = result.files.first.bytes;
         });
       }
     }
@@ -65,12 +79,11 @@ class CategoryScreen extends StatefulWidget {
                 child: SizedBox(
                   width: 200,
                   child: TextFormField(
-                    onChanged: (value){
-                      categoryName = value;
-                    },
                     validator: (value){
                       if(value!.isNotEmpty){
                         return null;
+                      }else{
+                        return "Please enter a category name";
                       }
                     },
                     decoration: InputDecoration(
@@ -95,7 +108,25 @@ class CategoryScreen extends StatefulWidget {
               pickImage();
             }, child: Text('Pick image'),),
           ),
-          Divider(color: Colors.grey,
+         const Divider(color: Colors.grey,
+          ),
+           Container(
+                width: 150,
+                height: 150,
+                decoration: BoxDecoration(
+                  color: Colors.black,
+                  borderRadius: BorderRadius.circular(5),
+                ),
+                child: Center(
+                  child: _bannerImage!=null ? Image.memory(_bannerImage):
+                  const Text
+                  ('Category banner', style: TextStyle(color: Colors.white))),
+              ),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: ElevatedButton(onPressed: (){}, child: Text('Pick Image'),),
+              ),
+               const Divider(color: Colors.grey,
           ),
         ],
       ),
