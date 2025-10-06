@@ -1,5 +1,6 @@
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
+import 'package:mac_store_web/controllers/banner_controller.dart';
 
 class UploadBannerScreen extends StatefulWidget {
   static const String id = '\banner-screen';
@@ -10,6 +11,7 @@ class UploadBannerScreen extends StatefulWidget {
 }
 
   class _UploadBannerScreenState extends State<UploadBannerScreen>{
+    final BannerController _bannerController = BannerController();
   dynamic _image;
     pickImage() async {
       FilePickerResult? result =  await FilePicker.platform.pickFiles(
@@ -53,12 +55,16 @@ class UploadBannerScreen extends StatefulWidget {
               ),
               Padding(
                 padding: const EdgeInsets.all(8.0),
-                child: ElevatedButton(onPressed: (){}, child: Text('Save')),
+                child: ElevatedButton(onPressed: () async{
+                  await _bannerController.uploadBanner(pickedImage: _image, context: context);
+                }, child: Text('Save')),
               ),
       ],),
       Padding(
         padding: const EdgeInsets.all(8.0),
-        child: ElevatedButton(onPressed: (){}, child: Text('Pick Image')),
+        child: ElevatedButton(onPressed: (){
+          pickImage();
+        }, child: Text('Pick Image')),
       )
     ],);
   }
