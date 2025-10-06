@@ -33,10 +33,13 @@ class _MyWidgetState extends State<BannerWidget> {
           gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 6,crossAxisSpacing: 8, mainAxisSpacing: 8), 
           itemBuilder: (context, index){
             final banner = banners[index];
-            return Image.network(
-              banner.image,
-              height: 100,
-              width: 100,
+            return Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Image.network(
+                banner.image,
+                height: 100,
+                width: 100,
+              ),
             );
           });
       }
