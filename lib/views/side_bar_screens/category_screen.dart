@@ -1,7 +1,8 @@
 import 'dart:io';
-
+import 'package:http/http.dart' as http;
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
+import 'package:mac_store_web/controllers/category_controller.dart';
 
 class CategoryScreen extends StatefulWidget {
   static const String id = '\category-screen';
@@ -13,6 +14,7 @@ class CategoryScreen extends StatefulWidget {
   
   class _CategoryScreenState extends State<CategoryScreen>{
     final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+    final CategoryController _categoryController = CategoryController();
     late String categoryName;
     dynamic _bannerImage;
     dynamic _image;
@@ -94,9 +96,13 @@ class CategoryScreen extends StatefulWidget {
               ),
               TextButton(onPressed: () {}, child: Text('cancel'),
               ),
-              ElevatedButton(onPressed: (){
+              ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Colors.blue,
+                ),
+                onPressed: () async {
                 if(_formKey.currentState!.validate()){
-                    print(categoryName);
+                   _categoryController.uploadCategory(pickedImage: _image, pickedBanner: _bannerImage, name: categoryName, context: context);
                 }
               }, child: Text('Save',
               ),),
@@ -124,7 +130,9 @@ class CategoryScreen extends StatefulWidget {
               ),
               Padding(
                 padding: const EdgeInsets.all(8.0),
-                child: ElevatedButton(onPressed: (){}, child: Text('Pick Image'),),
+                child: ElevatedButton(onPressed: (){
+                  pickBannerImage();
+                }, child: Text('Pick Image'),),
               ),
                const Divider(color: Colors.grey,
           ),
