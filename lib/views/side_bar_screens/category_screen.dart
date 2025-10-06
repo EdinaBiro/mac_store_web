@@ -1,5 +1,5 @@
 import 'dart:io';
-
+import 'package:http/http.dart' as http;
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:mac_store_web/controllers/category_controller.dart';
@@ -102,7 +102,7 @@ class CategoryScreen extends StatefulWidget {
                 ),
                 onPressed: () async {
                 if(_formKey.currentState!.validate()){
-                   _categoryController.uploadCategory(pickedImage: _image, pickedBanner: _bannerImage);
+                   _categoryController.uploadCategory(pickedImage: _image, pickedBanner: _bannerImage, name: categoryName, context: context);
                 }
               }, child: Text('Save',
               ),),

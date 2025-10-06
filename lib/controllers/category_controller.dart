@@ -1,22 +1,37 @@
 import 'package:cloudinary_public/cloudinary_public.dart';
+import 'package:flutter/foundation.dart' hide Category;
+import 'package:mac_store_web/models/category.dart';
+import 'package:http/http.dart' as http;
+import 'package:mac_store_web/global_variables.dart';
+import 'package:mac_store_web/services/manage_http_response.dart';
 
 class CategoryController {
-  uploadCategory({required dynamic pickedImage, required dynamic pickedBanner}) async {
+  uploadCategory({required dynamic pickedImage, required dynamic pickedBanner, required String name, required context}) async {
     try{
       final cloudinary = CloudinaryPublic("dmrnwy6te", "xs4u9qyv");
-
       CloudinaryResponse imageResponse = await cloudinary.uploadFile(
-        CloudinaryFile.fromBytesData(pickedImage, identifier: 'pickedImage',folder: 'categoryImages')
+        CloudinaryFile.fromBytesData(pickedImage, identifier: 'pickedImage', folder: 'categoryImages')
       );
-
-      print(imageResponse);
-
-      CloudinaryResponse bennerResponse = await cloudinary.uploadFile(
-        CloudinaryFile.fromBytesData(pickedBanner, identifier: 'pickedBanner',folder: 'categoryImages')
+      String image = imageResponse.secureUrl;
+      
+      CloudinaryResponse bannerResponse = await cloudinary.uploadFile(
+        CloudinaryFile.fromBytesData(pickedBanner, identifier: 'pickedBanner', folder: 'categoryImages')
       );
-
-      print(bennerResponse);
-    }catch(e){
+      String banner = bannerResponse.secureUrl;
+      
+      Category category = Category(id: "", name: name, image: image, banner: banner);
+      
+      http.Response response= await http.post(
+        Uri.parse("$uri/api/categories"),
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: category.toJson(),
+      );
+      manageHttpResponse(response: response, context: context, onSuccess: (){
+        showSnackBar(context, 'Uploaded category');
+      });
+    } catch(e) {
       print('Error uploading to cloudinary: $e');
     }
   }
