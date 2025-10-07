@@ -1,6 +1,7 @@
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:mac_store_web/controllers/category_controller.dart';
+import 'package:mac_store_web/controllers/subcategory_controller.dart';
 import 'package:mac_store_web/models/category.dart';
 
 class SubcategoryScreen extends StatefulWidget {
@@ -12,6 +13,7 @@ class SubcategoryScreen extends StatefulWidget {
 }
 
 class _SubcategoryScreenState extends State<SubcategoryScreen> {
+  final SubcategoryController subcategoryController = SubcategoryController();
   late Future<List<Category>> futureCategories;
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   late String name;
@@ -69,6 +71,7 @@ class _SubcategoryScreenState extends State<SubcategoryScreen> {
                   );
                 }else{
                   return DropdownButton<Category>(
+                    value: selectedCategory,
                     hint: const Text('Select Category'),
                     items: snapshot.data!.map((Category category){
                     return DropdownMenuItem(
@@ -124,6 +127,12 @@ class _SubcategoryScreenState extends State<SubcategoryScreen> {
                     ),
                     onPressed: () async {
                     if(_formKey.currentState!.validate()){
+                     await subcategoryController.uploadSubcategory(categoryId: selectedCategory!.id, categoryName: selectedCategory!.name, pickedImage: _image, subCategoryName: name, context: context);
+
+                      setState(() {
+                        _formKey.currentState!.reset();
+                        _image = null;
+                      });
                     }
                   }, child: Text('Save',
                   ),),
