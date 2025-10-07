@@ -1,7 +1,7 @@
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:mac_store_web/controllers/banner_controller.dart';
-import 'package:mac_store_web/views/side_bar_screens/banner_widget.dart';
+import 'package:mac_store_web/views/side_bar_screens/widgets/banner_widget.dart';
 
 class UploadBannerScreen extends StatefulWidget {
   static const String id = '\banner-screen';

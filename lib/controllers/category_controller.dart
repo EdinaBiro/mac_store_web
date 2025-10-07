@@ -37,7 +37,7 @@ class CategoryController {
       print('Error uploading to cloudinary: $e');
     }
   }
-  Future<List<Category>> _loadCategories() async{
+  Future<List<Category>> loadCategories() async{
     try{
         http.Response response = await http.get(Uri.parse('$uri/api/caregories'),
          headers: {
