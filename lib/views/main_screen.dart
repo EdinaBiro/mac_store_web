@@ -5,6 +5,7 @@ import 'package:mac_store_web/views/side_bar_screens/buyers_screen.dart';
 import 'package:mac_store_web/views/side_bar_screens/category_screen.dart';
 import 'package:mac_store_web/views/side_bar_screens/orders_screen.dart';
 import 'package:mac_store_web/views/side_bar_screens/products_screen.dart';
+import 'package:mac_store_web/views/side_bar_screens/subcategory_screen.dart';
 import 'package:mac_store_web/views/side_bar_screens/upload_banner_screen.dart';
 import 'package:mac_store_web/views/side_bar_screens/vendors_screen.dart';
 
@@ -38,6 +39,11 @@ class _MainScreenState extends State<MainScreen> {
       case CategoryScreen.id:
         setState(() {
           _selectedScreen=CategoryScreen();
+        });
+        break;
+       case SubcategoryScreen.id:
+        setState(() {
+          _selectedScreen=SubcategoryScreen();
         });
         break;
       case ProductsScreen.id:
@@ -79,6 +85,8 @@ class _MainScreenState extends State<MainScreen> {
          AdminMenuItem(title: 'Buyers', route: BuyersScreen.id, icon: CupertinoIcons.person,),
          AdminMenuItem(title: 'Orders', route: OrdersScreen.id, icon: CupertinoIcons.shopping_cart,),
           AdminMenuItem(title: 'Categories', route: CategoryScreen.id, icon: Icons.category,),
+          AdminMenuItem(title: 'Subcategories', route: SubcategoryScreen.id, icon: Icons.category_outlined,),
+
            AdminMenuItem(title: 'Upload Banner', route: UploadBannerScreen.id, icon: Icons.upload,),
            AdminMenuItem(title: 'Products', route: ProductsScreen.id, icon: Icons.store,),
       ], 
