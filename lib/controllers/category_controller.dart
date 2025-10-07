@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:cloudinary_public/cloudinary_public.dart';
 import 'package:flutter/foundation.dart' hide Category;
 import 'package:mac_store_web/models/category.dart';
@@ -33,6 +35,26 @@ class CategoryController {
       });
     } catch(e) {
       print('Error uploading to cloudinary: $e');
+    }
+  }
+  Future<List<Category>> loadCategories() async{
+    try{
+        http.Response response = await http.get(Uri.parse('$uri/api/categories'),
+         headers: {
+          'Content-Type': 'application/json',
+        },
+        );
+        print(response.body);
+        if(response.statusCode==200){
+          final List<dynamic> data = jsonDecode(response.body);
+          List<Category> categories = data.map((category) => Category.fromJson(category)).toList();
+        return categories;
+        }else{
+          throw Exception('Failed to load categories');
+        }
+        
+    }catch(e){
+      throw Exception("Error loading categories: $e");
     }
   }
 }
