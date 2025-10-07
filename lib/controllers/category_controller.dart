@@ -39,7 +39,7 @@ class CategoryController {
   }
   Future<List<Category>> loadCategories() async{
     try{
-        http.Response response = await http.get(Uri.parse('$uri/api/caregories'),
+        http.Response response = await http.get(Uri.parse('$uri/api/categories'),
          headers: {
           'Content-Type': 'application/json',
         },
